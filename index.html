@@ -1,21 +1,37 @@
 <html>
 <body>
-<div id="demo"></div>
+<div id="isEnable"></div>
 <script>
 // Example take from -> https://www.w3schools.com/html/html5_geolocation.asp
-const x = document.getElementById("demo");
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
+  
+const x = document.getElementById("isEnable");
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(showPosition, error, options);
   } else {
+    clearTimeout(myTimeout);
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
 
+const myTimeout = setTimeout(getLocation, 1000);
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
+function savePosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+
+  const date = new Date();
+  x.innerHTML = `Latidute: ${latitude} \nLongitude: ${longitude}\nTime get: ${date}`;
+}
+
+function error(err) {
+  x.innerHTML =`ERROR(${err.code}): ${err.message}`;
 }
 
 getLocation();
