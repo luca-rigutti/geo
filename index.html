@@ -13,7 +13,7 @@ const options = {
 const x = document.getElementById("isEnable");
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, error, options);
+    navigator.geolocation.getCurrentPosition(savePosition, error, options);
   } else {
     clearTimeout(myTimeout);
     x.innerHTML = "Geolocation is not supported by this browser.";
