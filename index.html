@@ -12,15 +12,15 @@
 <div class="container">
   <div class="input-group input-group-lg">
     <span class="input-group-text" id="inputGroup-sizing-lg">Instant</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-  </div>
-  <div class="input-group input-group-lg">
-    <span class="input-group-text" id="inputGroup-sizing-lg">Last minute velocity</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="instance-velocity">
   </div>
   <div class="input-group input-group-lg">
     <span class="input-group-text" id="inputGroup-sizing-lg">Km:</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="total-km">
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Total velocity:</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="total-velocity">
   </div>
 </div>
 
@@ -48,8 +48,9 @@
 </div>
 
 <script>
+const start = Date();
 const modalLogs = document.getElementById("modal-log");
-const myTimeout = setInterval(getLocation, 1000);
+const myTimeout = setInterval(getLocation, 3000);
 </script>
 
 </body>
