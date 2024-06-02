@@ -21,7 +21,7 @@ var last = {
     time: null,
 };
 
-totalKm = 0;
+totalM = 0;
 
 
 function savePosition(position) {
@@ -32,16 +32,16 @@ const nowDate = new Date();
 
 if (last.time != null)
 {
-    var km = Math.abs(getDistanceFromLatLonInKm(latitude,longitude,last.latitude,last.longitude));
-    totalKm += km;
+    var m = Math.abs(getDistanceFromLatLonInM(latitude,longitude,last.latitude,last.longitude));
+    totalM += m;
 
-    difference = nowDate - last.time;
+    difference = (nowDate - last.time) / 1000;
 
     var instance = km / difference;
-    var totalVelocity = totalKm / (nowDate - start);
+    var totalVelocity = totalM / ((nowDate - start) / 1000);
 
     document.getElementById("instance-velocity").value = `${instance}m/s`;
-    document.getElementById("total-km").value = `${km}`;
+    document.getElementById("total-km").value = `${totalM/1000}`;
     document.getElementById("total-velocity").value = `${totalVelocity}`;
 }
 
@@ -60,7 +60,7 @@ modalLogs.innerHTML +=`</br>ERROR(${err.code}): ${err.message}`;
 }
 
 // https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+function getDistanceFromLatLonInM(lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2-lat1);  // deg2rad below
     var dLon = deg2rad(lon2-lon1); 
@@ -71,7 +71,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
       ; 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c; // Distance in km
-    return d;
+    return d * 1000;
   }
   
   function deg2rad(deg) {
