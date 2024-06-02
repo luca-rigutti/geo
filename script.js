@@ -23,7 +23,7 @@ var last = {
 
 var totalM = 0;
 
-function calculateFromLast(latitude,longitude){
+function calculateFromLast(latitude,longitude,nowDate){
     if (last.time != null)
         {
             var m = Math.abs(getDistanceFromLatLonInM(latitude,longitude,last.latitude,last.longitude));
@@ -56,7 +56,7 @@ var longitude = position.coords.longitude;
 
 var nowDate = new Date();
 
-const [instance, totalM,totalVelocity] = calculateFromLast(latitude,longitude);
+const [instance, totalM,totalVelocity] = calculateFromLast(latitude,longitude,nowDate);
 setLast(latitude,longitude,nowDate);
 
 document.getElementById("instance-velocity").value = `${instance}m/s`;
