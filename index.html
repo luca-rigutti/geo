@@ -15,12 +15,12 @@ function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(savePosition, error, options);
   } else {
-    clearTimeout(myTimeout);
+    clearInterval(myTimeout);
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
 
-const myTimeout = setTimeout(getLocation, 1000);
+const myTimeout = setInterval(getLocation, 1000);
 
 function savePosition(position) {
   var latitude = position.coords.latitude;
