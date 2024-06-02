@@ -21,33 +21,47 @@ var last = {
     time: null,
 };
 
-totalM = 0;
+var totalM = 0;
+
+function calculateFromLast(latitude,longitude){
+    if (last.time != null)
+        {
+            var m = Math.abs(getDistanceFromLatLonInM(latitude,longitude,last.latitude,last.longitude));
+            totalM += m;
+        
+            var differenceInSecond = (nowDate - last.time) / 1000;
+        
+            var instance = m / differenceInSecond;
+            var totalVelocity = 0;
+            if(totalM != 0){
+                var differenceInSecondFromStart = ((nowDate - start) / 1000);
+                totalVelocity = totalM / differenceInSecondFromStart;
+            }
+        
+            return [instance, totalM,totalVelocity]
+        }
+    return [0,0,0];
+}
+
+function setLast(latitude,longitude,now){
+    last.longitude = longitude;
+    last.latitude = latitude;
+    last.time = now;
+}
 
 
 function savePosition(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
 
-const nowDate = new Date();
+var nowDate = new Date();
 
-if (last.time != null)
-{
-    var m = Math.abs(getDistanceFromLatLonInM(latitude,longitude,last.latitude,last.longitude));
-    totalM += m;
+const [instance, totalM,totalVelocity] = calculateFromLast(latitude,longitude);
+setLast(latitude,longitude,nowDate);
 
-    difference = (nowDate - last.time) / 1000;
-
-    var instance = km / difference;
-    var totalVelocity = totalM / ((nowDate - start) / 1000);
-
-    document.getElementById("instance-velocity").value = `${instance}m/s`;
-    document.getElementById("total-km").value = `${totalM/1000}`;
-    document.getElementById("total-velocity").value = `${totalVelocity}`;
-}
-
-last.longitude = longitude;
-last.latitude = latitude;
-last.time = nowDate;
+document.getElementById("instance-velocity").value = `${instance}m/s`;
+document.getElementById("total-km").value = `${totalM/1000}`;
+document.getElementById("total-velocity").value = `${totalVelocity}`;
 
 
 
